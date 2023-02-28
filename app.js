@@ -15,13 +15,22 @@ var express = require('express');
 var Unblocker = require('unblocker');
 var Transform = require('stream').Transform;
 var youtube = require('unblocker/examples/youtube/youtube.js')
+var blacklist = require("unblocker/examples/blacklist/blacklist.js");
 
 var app = express();
 
 var unblocker = new Unblocker({
     prefix: '/view/',
     requestMiddleware: [
-        youtube.processRequest
+        youtube.processRequest,
+        blacklist({
+            blockedDomains: ["google.com", "example2.com", "example3.com"],
+            message: "The URL doesn't work.",
+        }),
+        blacklist({
+            blockedDomains: [".com", "example2.com", "example3.com"],
+            message: "The requested url is not permitted.",
+        }),
     ],
 });
 
