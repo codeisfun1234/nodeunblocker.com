@@ -24,12 +24,12 @@ var unblocker = new Unblocker({
     requestMiddleware: [
         youtube.processRequest,
         blacklist({
-            blockedDomains: ["google.com", "example2.com", "example3.com"],
-            message: "The URL doesn't work.",
+            blockedDomains: ["google.com"],
+            message: "The requested URL doesn't work on this site.",
         }),
         blacklist({
-            blockedDomains: [".com", "example2.com", "example3.com"],
-            message: "The requested url is not permitted.",
+            blockedDomains: ["example.com"],
+            message: "The requested url is not permitted (has been blocked).",
         }),
     ],
 });
